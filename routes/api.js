@@ -21,6 +21,10 @@ exports.postData = function(req, res) {
   data.push(newMsg);
   
   res.send(data);
+/*
+  Uncomment this line if you want posted messages to be saved
+  to an external "messages.json" file
+*/
   /*fs.writeFile('./data/messages.json', JSON.stringify(data), 'utf8', function(err) {
     if (err) throw err;
     res.send(data);
