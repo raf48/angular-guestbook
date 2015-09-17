@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes');
@@ -11,8 +12,13 @@ var app = module.exports = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(logger('dev'));
+
+// parse application/json
 app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
