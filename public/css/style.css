@@ -23,8 +23,9 @@ table.main, table.main th, table.main td {
   margin: 5px;
 }
 
-.txt-inp {
+input, textarea {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  border: 1px solid #CECECE;
 }
 
 .textarea {
@@ -32,7 +33,54 @@ table.main, table.main th, table.main td {
   height: 100px;
 }
 
+.admin_btns {
+  text-align: right;
+  margin: 0px;
+}
+
+/*.slidein {
+  -moz-animation-duration: 0.5s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+  animation-name: slidein;
+  animation-timing-function: linear;
+  height: 130px;
+}
+
+.ng-hide {
+  -moz-animation-duration: 0.5s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -moz-animation-name: slideout;
+  -webkit-animation-name: slideout;
+  animation-name: slideout;
+  animation-timing-function: linear;
+  height: 10px;
+}*/
+
 .msg-box .error {
-  border-color: red;
+  border: 1px solid red;
   color: red;
 }
+
+/*@keyframes slidein {
+  from {
+    height: 10px;
+  }
+
+  to {
+    height: 130px;
+  }
+}
+
+@keyframes slideout {
+  from {
+    height: 130px;
+  }
+
+  to {
+    height: 10px;
+  }
+}*/
