@@ -6,17 +6,25 @@ var app = angular.module('guestBook.services', []);
 
 app.factory('messagesAPI', function($http, $q) {
   return {
-    get: function() {
+    getData: function() {
       var d = $q.defer();
-      $http.get('/api/getData').success(function(data) {
+      $http.get('/api/messages').success(function(data) {
         d.resolve(data);
       });
       
       return d.promise;
     },
-    post: function(data) {
+    postData: function(data) {
       var d = $q.defer();
-      $http.post('/api/postData', data).success(function(data) {
+      $http.post('/api/messages', data).success(function(data) {
+        d.resolve(data);
+      });
+      
+      return d.promise;
+    },
+    deleteMessage: function(id) {
+      var d = $q.defer();
+      $http.delete('/api/message/' + id).success(function(data) {
         d.resolve(data);
       });
       
