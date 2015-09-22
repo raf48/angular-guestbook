@@ -24,10 +24,12 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // serve index, data and view partials
 app.get('/', routes.index);
+app.get('/admin', routes.admin);
 app.get('/partials/:name', routes.partials);
 
-app.get('/api/getData', api.getData);
-app.post('/api/postData', api.postData);
+app.get('/api/messages', api.getData);
+app.post('/api/messages', api.postData);
+app.delete('/api/message/:id', api.deleteMessage);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
