@@ -30,6 +30,7 @@ app.get('/partials/:name', routes.partials);
 app.get('/api/messages', api.getData);
 app.post('/api/messages', api.postData);
 app.delete('/api/message/:id', api.deleteMessage);
+app.put('/api/message/:id', api.editMessage);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
