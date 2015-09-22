@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  div(align="middle")
+    h1 Welcome to Guestbook (Admin)
+
+  table.main(ng-controller="adminController")
+    tr
+      td
+        div(ng-view)
