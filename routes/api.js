@@ -56,3 +56,15 @@ exports.deleteMessage = function(req, res) {
     res.json(false);
   }
 };
+
+/* PUT */
+exports.editMessage = function(req, res) {
+  var id = req.params.id;
+  
+  if (id >= 0 && id < data.length) {
+    data[id].text = req.body.text;
+    res.json(true);
+  } else {
+    res.json(false);
+  }
+};
