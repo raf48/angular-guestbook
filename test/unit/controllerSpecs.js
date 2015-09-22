@@ -19,7 +19,7 @@ describe('Guestbook controllers', function() {
     }));
 
     it('should post new message', function() {
-      $httpBackend.when('POST', '/api/postData', postObj).respond([postObj]);
+      $httpBackend.when('POST', '/api/messages', postObj).respond([postObj]);
       $httpBackend.when('GET', '/partials/messages').respond();
       scope.newMessage = {"from":"Author", "text":"Some text", "date":"2012-12-23T12:16:00.582Z"};
       
@@ -35,7 +35,7 @@ describe('Guestbook controllers', function() {
     });
 
     it('new message window inputs should be cleared after post', function() {
-      $httpBackend.when('POST', '/api/postData', postObj).respond([postObj]);
+      $httpBackend.when('POST', '/api/messages', postObj).respond([postObj]);
       $httpBackend.when('GET', '/partials/messages').respond();
       scope.newMessage = {"from":"Author", "text":"Some text", "date":"2012-12-23T12:16:00.582Z"};
       
@@ -54,7 +54,7 @@ describe('Guestbook controllers', function() {
 
   describe('showMessages', function() {
     var scope, ctrl, $httpBackend,
-        postObj = {"from":"Author", "text":"Some text", "date":"2012-12-23T12:16:00.582Z"};
+        getObj = {"from":"Author", "text":"Some text", "date":"2012-12-23T12:16:00.582Z"};
     
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
@@ -71,11 +71,34 @@ describe('Guestbook controllers', function() {
     });
 
     it('should fetch message data', function() {
-      $httpBackend.expectGET('/api/getData').respond([postObj]);
+      $httpBackend.expectGET('/api/messages').respond([getObj]);
       $httpBackend.flush();
       
       scope.getMessages();
-      expect(scope.messages).toEqual([postObj]);
+      expect(scope.messages).toEqual([getObj]);
+    });
+  });
+
+  describe('adminController', function() {
+    var scope, admCtrl, showMsgCtrl, $httpBackend,
+        testObj = {"id":"0","from":"Author", "text":"Some text", "date":"2012-12-23T12:16:00.582Z"};
+
+    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+      $httpBackend = _$httpBackend_;
+      scope = $rootScope.$new();
+      admCtrl = $controller('adminController', {$scope: scope});
+      showMsgCtrl = $controller('showMessages', {$scope: scope});
+    }));
+
+    it('should delete message with id 0', function() {
+      scope.messages = [testObj];
+      $httpBackend.expectDELETE('/api/message/0').respond();
+      $httpBackend.when('GET', '/partials/messages').respond();
+      $httpBackend.when('GET', '/api/messages').respond([]);
+
+      scope.delete(0);
+      $httpBackend.flush();
+      expect(scope.messages).toEqual([]);
     });
   });
 });
