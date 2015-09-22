@@ -1,0 +1,19 @@
+block content
+  div(ng-repeat="message in messages | orderBy : orderMessages")
+    div.admin_btns
+      span(ng-show="!promptDelete(message.id) && !editMessage(message.id)")
+        a(href="#" ng-click="showDelete(message.id)") Delete
+        |  | 
+        a(href="#" ng-click="edit(message.id, message.text)") Edit
+      span(ng-show="promptDelete(message.id)") Are you sure? 
+        a(href="#" ng-click="delete(message.id)") Yes
+        |  | 
+        a(href="#" ng-click="cancelDelete()") No
+      span(ng-show="editMessage(message.id)")
+        a(href="#" ng-click="saveEdit(message.id, message.text)") Save
+        |  | 
+        a(href="#" ng-click="cancelEdit()") Cancel
+    div(ng-show="!editMessage(message.id)")
+      message(from="{{ message.from }}" text="{{ message.text }}" date="{{ message.date | date : 'yyyy-MM-dd HH:mm:ss' }}")
+    div(ng-show="editMessage(message.id)")
+      edit-message(from="{{ message.from }}" text="message.text" date="{{ message.date }}")
