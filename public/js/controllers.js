@@ -62,6 +62,20 @@ app.controller('showMessages', function($scope, messagesAPI) {
 
 app.controller('adminController', function($scope, $route, messagesAPI) {
 
+  var deleteMessage, editMessage;
+  
+  $scope.promptDelete = function(id) {
+    return deleteMessage === id;
+  };
+  
+  $scope.showDelete = function(id) {
+    deleteMessage = id;
+  };
+  
+  $scope.cancelDelete = function() {
+    deleteMessage = "";
+  };
+
   $scope.delete = function(id) {
     messagesAPI.deleteMessage(id)
       .then(function(data) {
@@ -69,10 +83,31 @@ app.controller('adminController', function($scope, $route, messagesAPI) {
       }, function(reason) {
         console.log('failed to delete: ', reason);
       });
+    // Clear previous message delete prompts
+    $scope.cancelDelete();
   };
 
-  $scope.edit = function(id) {
-    /* TODO: implement edit */
-    console.log('edit: ', id);
+  $scope.editMessage = function(id) {
+    return editMessage === id;
+  };
+
+  $scope.edit = function(id, text) {
+    editMessage = id;
+  };
+
+  $scope.saveEdit = function(id, text) {
+    var postData = { "text": text }
+    messagesAPI.editMessage(id, postData)
+      .then(function(data) {
+        $route.reload();
+      }, function(reason) {
+        console.log('failed to save edit: ', reason);
+      });
+    $scope.cancelEdit();
+  };
+  
+  $scope.cancelEdit = function() {
+    editMessage = "";
+    $route.reload();
   };
 });
