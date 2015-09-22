@@ -29,6 +29,14 @@ app.factory('messagesAPI', function($http, $q) {
       });
       
       return d.promise;
+    },
+    editMessage: function(id, data) {
+      var d = $q.defer();
+      $http.put('/api/message/' + id, data).success(function(data) {
+        d.resolve(data);
+      });
+      
+      return d.promise;
     }
   }
 });
