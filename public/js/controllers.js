@@ -18,7 +18,7 @@ app.controller('mainController', function($scope, $route, messagesAPI) {
     $scope.showValidationMessage = true;
     // Check if form is valid
     if ($scope.message.$valid) {
-      messagesAPI.post($scope.newMessage)
+      messagesAPI.postData($scope.newMessage)
         .then(function(data) {
           $scope.messages = data;
           // Hide new message window
@@ -29,7 +29,7 @@ app.controller('mainController', function($scope, $route, messagesAPI) {
           // Reload message view
           $route.reload();
         }, function(reason) {
-          console.log('failed to post: ' + reason);
+          console.log('failed to post: ', reason);
       });
       // Hide form validation messages
       $scope.showValidationMessage = false;
@@ -49,13 +49,30 @@ app.controller('showMessages', function($scope, messagesAPI) {
 
   // Get messages from server via messagesAPI service
   $scope.getMessages = function() {
-    messagesAPI.get()
+    messagesAPI.getData()
       .then(function(data) {
         $scope.messages = data;
       }, function(reason) {
-        console.log('failed to get: ' + reason);
+        console.log('failed to get: ', reason);
     });
   };
-  
+
   $scope.getMessages();
+});
+
+app.controller('adminController', function($scope, $route, messagesAPI) {
+
+  $scope.delete = function(id) {
+    messagesAPI.deleteMessage(id)
+      .then(function(data) {
+        $route.reload();
+      }, function(reason) {
+        console.log('failed to delete: ', reason);
+      });
+  };
+
+  $scope.edit = function(id) {
+    /* TODO: implement edit */
+    console.log('edit: ', id);
+  };
 });
