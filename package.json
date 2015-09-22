@@ -24,7 +24,7 @@
     "phantomjs": "^1.9.18"
   },
   "scripts": {
-	"start": "node ./bin/www",
-	"test": "./node_modules/karma/bin/karma start ./test/karma.conf.js"
+    "start": "node ./bin/www",
+    "test": "node ./node_modules/karma/bin/karma start ./test/karma.conf.js"
   }
 }
