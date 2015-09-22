@@ -13,6 +13,10 @@ angular.module('guestBook', [
       templateUrl: '/partials/messages',
       controller: 'showMessages'
     })
+    .when('/admin', {
+      templateUrl: '/partials/adm_messages',
+      controller: 'showMessages'
+    })
     .otherwise({
       redirectTo: '/'
     });
