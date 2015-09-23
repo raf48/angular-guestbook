@@ -24,4 +24,4 @@ Use "/admin" to access guestbook administrator role. Admin can delete and/or edi
 
 ## Note
 Messages are fetched on startup from "messages.json" file and are kept in memory throughout the lifetime of the application.
-If you want posted messages to be saved to an external file, just uncomment appropriate code lines in "api.js" file.
+If you want posted messages to be saved to an external file, just uncomment appropriate code in "api.js" file.
