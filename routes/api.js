@@ -25,24 +25,23 @@ exports.getData = function(req, res) {
 
 /* POST */
 exports.postData = function(req, res) {
-  var newMsg = {},
-      date = new Date();
+  var newMsg = {};
 
   newMsg.id = ++current_id;
   newMsg.from = req.body.from;
   newMsg.text = req.body.text;
-  newMsg.date = date.toISOString();
+  newMsg.date = new Date().toISOString();
   data.push(newMsg);
 
   res.json(true);
 /*
   Uncomment this line if you want posted messages to be saved
   to an external "messages.json" file
-*/
-  /*fs.writeFile('./data/messages.json', JSON.stringify(data), 'utf8', function(err) {
+
+  fs.writeFile('./data/messages.json', JSON.stringify(data), 'utf8', function(err) {
     if (err) throw err;
-    res.send(data);
-  });*/
+  });
+*/
 };
 
 /* DELETE */
@@ -63,8 +62,17 @@ exports.editMessage = function(req, res) {
   
   if (id >= 0 && id < data.length) {
     data[id].text = req.body.text;
+    data[id].modDate = new Date().toISOString();
     res.json(true);
   } else {
     res.json(false);
   }
+/*
+  Uncomment this line if you want edited messages to be saved
+  to an external "messages.json" file
+
+  fs.writeFile('./data/messages.json', JSON.stringify(data), 'utf8', function(err) {
+    if (err) throw err;
+  });
+*/
 };

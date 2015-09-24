@@ -6,26 +6,28 @@ block content
     p Here are the latest messages:
 
   table.main(ng-controller="mainController")
-    tr
-      td.newMessage(ng-show="!newMessage.show")
-        a(href="#" ng-click="newMessage.show = true") Add new
-    tr
-      td.newMessage(ng-show="newMessage.show")
-        a(href="#" ng-click="cancelNewMessage()") Cancel
-    tr
-      td(ng-show="newMessage.show")
-          form(name="message" novalidate)
-            div.msg-box
-              input(type="text" ng-model="newMessage.from" placeholder="From"
-                    ng-class="{error: showValidationMessage && message.from.$invalid}"
-                    ng-maxlength="50" size="30" name="from" required)
-            div.msg-box
-              textarea(ng-model="newMessage.text" placeholder="Enter new message"
-                       ng-class="{error: showValidationMessage && message.text.$invalid}"
-                       ng-maxlength="2000" name="text" required)
-    tr
-      td.newMessage(ng-show="newMessage.show")
-        a(href="#" ng-click="postNewMessage()") Submit
-    tr
-      td
-        div(ng-view)
+    thead
+      tr
+        td.newMessage(ng-show="!newMessage.show")
+          a(href="#" ng-click="newMessage.show = true") Add new
+      tr
+        td.newMessage(ng-show="newMessage.show")
+          a(href="#" ng-click="cancelNewMessage()") Cancel
+      tr
+        td(ng-show="newMessage.show")
+            form(name="message" novalidate)
+              div.msg-box
+                input(type="text" ng-model="newMessage.from" placeholder="From"
+                      ng-class="{error: showValidationMessage && message.from.$invalid}"
+                      ng-maxlength="50" size="30" name="from" required)
+              div.msg-box
+                textarea(ng-model="newMessage.text" placeholder="Enter new message"
+                         ng-class="{error: showValidationMessage && message.text.$invalid}"
+                         ng-maxlength="2000" name="text" required)
+      tr
+        td.newMessage(ng-show="newMessage.show")
+          a(href="#" ng-click="postNewMessage()") Submit
+    tbody
+      tr
+        td
+          div(ng-view)

@@ -11,11 +11,18 @@ a {
 }
 
 table.main, table.main th, table.main td {
-  padding: 10px;
   margin: 0 auto;
   border-collapse: collapse;
   border: 1px solid black;
   width: 50%;
+}
+
+table.main thead td {
+  padding: 10px;
+}
+
+table.main tbody td {
+  padding: 0px 10px 0px 10px;
 }
 
 .msg-box {
@@ -41,4 +48,12 @@ textarea {
 .admin_btns {
   text-align: right;
   margin: 0px;
+}
+
+.admin_btns {
+  padding: 10px 0px 0px 0px;
+}
+
+.modDate {
+  font-weight: bold;
 }

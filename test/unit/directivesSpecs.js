@@ -7,7 +7,7 @@ describe('Guestbook directives', function() {
   beforeEach(module('guestBook.directives'));
 
   describe('message', function() {
-    var scope, element, date = new Date().toISOString();
+    var scope, element;
 
     function compileDirective(from, text, date) {
       var template = '<message from="' + from + '" text="' + text + 
@@ -20,19 +20,18 @@ describe('Guestbook directives', function() {
 
     beforeEach(inject(function($rootScope, $compile) {
       scope = $rootScope.$new();
-      compileDirective('Author', 'Hello', date);
+      compileDirective('Author', 'Hello', new Date('2015-12-17T03:24:00').toISOString());
     }));
 
-    it('should produce three paragraphs and a hr', function() {
+    it('should produce three paragraphs', function() {
       expect(element.find('p').length).toBe(3);
-      expect(element.find('hr').length).toBe(1);
     });
 
     it('every paragraph should contain expected text', function() {
       var el = element.find('p').contents();
       expect(el[0].data).toContain('Author');
       expect(el[1].data).toContain('Hello');
-      expect(el[2].data).toContain(date);
+      expect(el[2].data).toContain('2015-12-17 03:24:00');
     });
   });
 });

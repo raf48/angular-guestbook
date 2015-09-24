@@ -8,17 +8,21 @@ app.directive('message', function() {
   return {
     restrict: 'EA',
     scope: {
-      id: '@',
       from: '@',
       text: '@',
-      date: '@'
+      date: '@',
+      modDate: '@'
     },
     replace: true,
     template: '<div>' + 
       '<p>From: {{ from }}</p>' + 
-      '<p>{{ text }}</p>' + 
-      '<p>Date: {{ date | date : "yyyy-MM-dd HH:mm:ss" }}</p>' + 
-      '<hr />' + 
+      '<p>{{ text }}</p>' +
+      '<p>' + 
+      '  <span>Date: {{ date | date : "yyyy-MM-dd HH:mm:ss" }}</span>' +
+      '  <span class="modDate" ng-show="modDate">| ' +
+      'Modified by admin: {{ modDate | date : "yyyy-MM-dd HH:mm:ss"}}' +
+      '  </span>' +
+      '</p>' +
     '</div>'
   }
 }).directive('editMessage', function() {
@@ -52,12 +56,13 @@ app.directive('message', function() {
       id: '@',
       from: '@',
       text: '@',
-      date: '@'
+      date: '@',
+      modDate: '@'
     },
     replace: true,
     template: '<div>' + 
       '<div class="admin_btns">' +
-      '  <span ng-show="!showDelete(id) && !showEdit(id)">' +
+      '  <span ng-show="!showDelete(id) && !showEdit(id)"">' +
       '    <a href="#" ng-click="promptDelete(id)">Delete</a> | ' + 
       '    <a href="#" ng-click="promptEdit(id, text)">Edit</a>' +
       '  </span>' +
@@ -73,8 +78,12 @@ app.directive('message', function() {
       '<p>From: {{ from }}</p>' + 
       '<textarea ng-show="showEdit(id)" ng-model="editText"></textarea>' + 
       '<p ng-show="!showEdit(id)">{{ text }}</p>' +
-      '<p>Date: {{ date | date : "yyyy-MM-dd HH:mm:ss" }}</p>' +
-      '<hr />' + 
+      '<p>' + 
+      '  <span>Date: {{ date | date : "yyyy-MM-dd HH:mm:ss" }}</span>' +
+      '  <span class="modDate" ng-show="modDate">| ' +
+      'Modified by admin: {{ modDate | date : "yyyy-MM-dd HH:mm:ss"}}' +
+      '  </span>' +
+      '</p>' +
     '</div>',
     link: function(scope, element, attrs) {
       scope.showDelete = showDelete;

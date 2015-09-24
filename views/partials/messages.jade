@@ -1,3 +1,4 @@
 block content
   div(ng-repeat="message in messages | orderBy : orderMessages")
-    message(from="{{ message.from }}" text="{{ message.text }}" date="{{ message.date }}")
+    message(from="{{ message.from }}" text="{{ message.text }}" date="{{ message.date }}" mod-date="{{ message.modDate }}")
+    hr(ng-show="!$last")
