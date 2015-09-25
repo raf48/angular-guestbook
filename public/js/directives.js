@@ -25,7 +25,7 @@ app.directive('message', function() {
       '</p>' +
     '</div>'
   }
-}).directive('editMessage', function() {
+}).directive('adminMessage', function() {
 
   var deleteMessageID,
       editMessageID;
