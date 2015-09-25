@@ -50,8 +50,16 @@ textarea {
   margin: 0px;
 }
 
-.admin_btns {
-  padding: 10px 0px 0px 0px;
+.admMessage:first-of-type {
+  padding-top: 10px;
+}
+
+.admMessage:last-of-type hr, .message:last-of-type hr {
+  display: none;
+}
+
+.admMessage p {
+  margin-top: 0px;
 }
 
 .modDate {
