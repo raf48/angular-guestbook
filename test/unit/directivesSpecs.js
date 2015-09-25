@@ -28,10 +28,10 @@ describe('Guestbook directives', function() {
     });
 
     it('every paragraph should contain expected text', function() {
-      var el = element.find('p').contents();
-      expect(el[0].data).toContain('Author');
-      expect(el[1].data).toContain('Hello');
-      expect(el[2].data).toContain('2015-12-17 03:24:00');
+      var el = element.find('p').contents().text();
+      expect(el).toContain('Author');
+      expect(el).toContain('Hello');
+      expect(el).toContain('2015-12-17 03:24:00');
     });
   });
 });
