@@ -1,11 +1,12 @@
-extends layout
-
 block content
+  div(class="admLogin")
+    a(href="/login") Login
+
   div(align="middle")
     h1 Welcome to Guestbook
     p Here are the latest messages:
 
-  table.main(ng-controller="mainController")
+  table.main
     thead
       tr
         td.newMessage(ng-show="!newMessage.show")
@@ -30,4 +31,7 @@ block content
     tbody
       tr
         td
-          div(ng-view)
+          div(ng-repeat="message in messages | orderBy : orderMessages" class="message")
+            message(from="{{ message.from }}" text="{{ message.text }}"
+                    date="{{ message.date }}" mod-date="{{ message.modDate }}")
+            hr
