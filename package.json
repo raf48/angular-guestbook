@@ -11,7 +11,7 @@
     "serve-favicon": "~2.3.0",
     "angular": "1.4.5",
     "angular-mocks": "1.4.5",
-    "angular-route": "1.4.5"
+    "angular-ui-router": "0.2.15"
   },
   "devDependencies": {
     "jasmine-core": "^2.3.4",
