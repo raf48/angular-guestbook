@@ -65,3 +65,8 @@ textarea {
 .modDate {
   font-weight: bold;
 }
+
+.admLogin {
+  position: absolute;
+  right: 2%;
+}

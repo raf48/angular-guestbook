@@ -4,13 +4,26 @@
 
 var app = angular.module('guestBook.controllers', []);
 
-app.controller('mainController', function($scope, $route, messagesAPI) {
+app.controller('mainController', function($scope, $rootScope, $state, AUTH_EVENTS) {
+  
+  $rootScope.currentUser = null;
+  $scope.setCurrentUser = function(user) {
+    $rootScope.currentUser = user;
+  };
+  
+  $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+    $state.go('admin');
+  });
+});
 
-// Create newMessage object
+app.controller('showMessages', function($scope, $state, messagesAPI) {
+
+  $scope.messages = [];
+  $scope.orderMessages = '-date';
+
   $scope.newMessage = {
     show: false
   };
-
   $scope.showValidationMessage = false;
 
   $scope.postNewMessage = function() {
@@ -27,7 +40,7 @@ app.controller('mainController', function($scope, $route, messagesAPI) {
           $scope.newMessage.text = '';
           $scope.newMessage.from = '';
           // Reload message view
-          $route.reload();
+          $state.go($state.current, {}, { reload: true });
         }, function(reason) {
           console.log('failed to post: ', reason);
       });
@@ -35,17 +48,6 @@ app.controller('mainController', function($scope, $route, messagesAPI) {
       $scope.showValidationMessage = false;
     }
   };
-  
-  $scope.cancelNewMessage = function() {
-    $scope.newMessage.show = false;
-    $scope.showValidationMessage = false;
-  };
-});
-
-app.controller('showMessages', function($scope, messagesAPI) {
-
-  $scope.messages = [];
-  $scope.orderMessages = '-date';
 
   // Get messages from server via messagesAPI service
   $scope.getMessages = function() {
@@ -57,27 +59,51 @@ app.controller('showMessages', function($scope, messagesAPI) {
     });
   };
 
+  $scope.cancelNewMessage = function() {
+    $scope.newMessage.show = false;
+    $scope.showValidationMessage = false;
+  };
+
   $scope.getMessages();
 });
 
-app.controller('adminController', function($scope, $route, messagesAPI) {
+app.controller('adminController', function($scope, $state, messagesAPI, AuthService) {
 
+  $scope.auth = AuthService.isAuthenticated;
+  
   $scope.delete = function(id) {
     messagesAPI.deleteMessage(id)
       .then(function(data) {
-        $route.reload();
+        $state.go($state.current, {}, { reload: true });
       }, function(reason) {
         console.log('failed to delete: ', reason);
-      });
+    });
   };
 
   $scope.saveEdit = function(id, text) {
-    var postData = { "text": text }
-    messagesAPI.editMessage(id, postData)
+    messagesAPI.editMessage(id, text)
       .then(function(data) {
-        $route.reload();
+        $state.go($state.current, {}, { reload: true });
       }, function(reason) {
         console.log('failed to save edit: ', reason);
-      });
+    });
+  };
+});
+
+app.controller('loginController', function($scope, $rootScope, AUTH_EVENTS, AuthService) {
+
+  $scope.credentials = {
+    username: '',
+    password: ''
+  };
+  
+  $scope.login = function(credentials) {
+    AuthService.login(credentials)
+      .then(function(user) {
+        $scope.setCurrentUser(user);
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      }, function() {
+        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+    });
   };
 });

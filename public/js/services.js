@@ -32,10 +32,68 @@ app.factory('messagesAPI', function($http, $q) {
     },
     editMessage: function(id, data) {
       var d = $q.defer();
-      $http.put('/api/message/' + id, data).success(function(data) {
+      $http.put('/api/message/' + id, { "text": data }).success(function(data) {
         d.resolve(data);
       });
       
+      return d.promise;
+    }
+  }
+});
+
+app.factory('AuthService', function($http, $q, Session) {
+  var authService = {};
+  
+  authService.login = function(credentials) {
+    var d = $q.defer();
+    $http.post('/api/login', credentials)
+      .success(function(data) {
+        Session.create(data.id, data.userId);
+        d.resolve(data.user);
+      }
+    ).error(function(err) {
+      d.reject(err);
+    });
+
+    return d.promise;
+  };
+  
+  authService.isAuthenticated = function() {
+    return !!Session.userId;
+  };
+
+  return authService;
+});
+
+app.service('Session', function() {
+  this.create = function(sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
+  
+  // Currently not used
+  /*this.destroy = function() {
+    this.id = null;
+    this.userId = null;
+  };*/
+});
+
+app.factory('AuthResolver', function($q, $rootScope, $state) {
+  return {
+    resolve: function() {
+      var d = $q.defer();
+      var unwatch = $rootScope.$watch('currentUser', function(currentUser) {
+        if (angular.isDefined(currentUser)) {
+          if (currentUser) {
+            d.resolve(currentUser);
+          } else {
+            d.reject();
+            console.log('rejected...');
+            $state.go('login');
+          }
+          unwatch();
+        }
+      });
       return d.promise;
     }
   }
