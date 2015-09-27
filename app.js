@@ -23,17 +23,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // serve index, data and view partials
-app.get('/', routes.index);
-app.get('/admin', routes.admin);
+app.get('/index', routes.index);
 app.get('/partials/:name', routes.partials);
 
+// serve message api
+app.post('/api/login', api.login);
 app.get('/api/messages', api.getData);
 app.post('/api/messages', api.postData);
 app.delete('/api/message/:id', api.deleteMessage);
 app.put('/api/message/:id', api.editMessage);
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+app.get('/*', routes.start);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
