@@ -76,3 +76,18 @@ exports.editMessage = function(req, res) {
   });
 */
 };
+
+/* LOGIN */
+exports.login = function(req, res) {
+
+  if (req.body.username == "admin" &&
+      req.body.password == "admin") {
+    res.json({
+      id: 123456,
+      userId: 12345,
+      user: "admin"
+    });
+  } else {
+    res.status(401).send("Not authorized");
+  }
+};

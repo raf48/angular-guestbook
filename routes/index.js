@@ -1,9 +1,9 @@
-exports.index = function(req, res) {
-  res.render('index');
+exports.start = function(req, res) {
+  res.render('layout');
 };
 
-exports.admin = function(req, res) {
-  res.render('admin');
+exports.index = function(req, res) {
+  res.render('index');
 };
 
 exports.partials = function(req, res) {
