@@ -1,15 +1,14 @@
 block content
-  div(class="admLogin")
-    a(href="/logout") Logout
-  
   div(ng-controller="adminController")
+    button(type="button" class="btn btn-default adm-login" ng-click="logout()") Logout
+
     div(align="middle")
       h1 Welcome to Guestbook (Admin)
 
-    table.main
-      tr
-        td
-          div(ng-repeat="message in messages | orderBy : orderMessages" class="admMessage")
-            admin-message(id="{{ message.id }}" from="{{ message.from }}" text="{{ message.text }}" 
-                          date="{{ message.date }}" mod-date="{{ message.modDate }}")
-            hr
+      table.main
+        tr
+          td
+            div(ng-repeat="message in messages | orderBy : orderMessages" class="admMessage")
+              admin-message(id="{{ message.id }}" from="{{ message.from }}" text="{{ message.text }}" 
+                            date="{{ message.date }}" mod-date="{{ message.modDate }}")
+              hr
