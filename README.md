@@ -16,7 +16,7 @@ npm start
 
 To run unit tests with karma
 
-**Note:** After last code review unit tests don't work. Gonna fix that asap.
+**Note (2015-09-28):** After last code review unit tests don't work. Gonna fix that asap.
 ```
 npm test
 ```
