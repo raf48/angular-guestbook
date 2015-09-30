@@ -1,33 +1,33 @@
 block content
-  div(class="admLogin")
-    a(href="/login") Login
+  div(ng-controller="modalCtrl")
+    button(type="button" class="btn btn-default adm-login" ng-click="open()") Login!
 
   div(align="middle")
     h1 Welcome to Guestbook
     p Here are the latest messages:
 
-  table.main
+  table(class="main" ng-controller="showMessages")
     thead
       tr
         td.newMessage(ng-show="!newMessage.show")
-          a(href="#" ng-click="newMessage.show = true") Add new
+          button(class="btn btn-default btn-block" ng-click="newMessage.show = true") Add new
       tr
         td.newMessage(ng-show="newMessage.show")
-          a(href="#" ng-click="cancelNewMessage()") Cancel
+          button(class="btn btn-info btn-block" ng-click="cancelNewMessage()") Cancel
       tr
-        td(ng-show="newMessage.show")
-            form(name="message" novalidate)
-              div.msg-box
+        td.newMsgForm(ng-show="newMessage.show")
+            form(name="message" class="form-group" novalidate)
+              div.form-group
                 input(type="text" ng-model="newMessage.from" placeholder="From"
                       ng-class="{error: showValidationMessage && message.from.$invalid}"
-                      ng-maxlength="50" size="30" name="from" required)
-              div.msg-box
+                      class="form-control from" ng-maxlength="50" name="from" required)
+              div.form-group
                 textarea(ng-model="newMessage.text" placeholder="Enter new message"
                          ng-class="{error: showValidationMessage && message.text.$invalid}"
-                         ng-maxlength="2000" name="text" required)
+                         class="form-control" rows="3" ng-maxlength="2000" name="text" required)
       tr
         td.newMessage(ng-show="newMessage.show")
-          a(href="#" ng-click="postNewMessage()") Submit
+          button(class="btn btn-primary btn-block" ng-click="postNewMessage()") Submit
     tbody
       tr
         td
@@ -35,3 +35,24 @@ block content
             message(from="{{ message.from }}" text="{{ message.text }}"
                     date="{{ message.date }}" mod-date="{{ message.modDate }}")
             hr
+
+  script(type="text/ng-template" id="loginModalContent")
+    div(class="modal-header")
+      h3(class="modal-title") Enter credentials
+    div(class="panel-body")
+      p usr: admin
+      p pwd: admin
+      form(name="loginForm" class="form-horizontal" ng-submit="login(credentials)" novalidate)
+        div(style="margin-top: 15px" class="input-group")
+          span(class="input-group-addon")
+            i(class="glyphicon glyphicon-user")
+          input(class="form-control" type="text" id="username"
+                ng-model="credentials.username" placeholder="Username")
+        div(style="margin-top: 15px" class="input-group")
+          span(class="input-group-addon")
+            i(class="glyphicon glyphicon-lock")
+          input(class="form-control" type="password" id="password"
+                ng-model="credentials.password" placeholder="Password")
+        div(class="form-group login-btn")
+          div(class="col-sm-12  controls text-right")
+            input(type="submit" id="btn-login" class="btn btn-success" value="Login")
