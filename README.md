@@ -28,10 +28,10 @@ Use "Login" button in the top right corner to login with administrator role (use
 Messages are fetched on startup from "messages.json" file and are kept in memory throughout the lifetime of the application.
 If you want posted/edited messages to be saved to an external file, just uncomment appropriate commented lines in "api.js" file.
 
-## Update (2015-09-30)
+#### Update (2015-09-30)
 - Added UI Bootstrap (animation, modal login, buttons and some styles);
 - Fixed administrator logout button logic.
 
-## Update (2015-09-28)
+#### Update (2015-09-28)
 - Switched routing from "angular-route" to " angular-ui-router". Now instead of URL-routes we're using states;
 - Added authentication service. You can now login as administrator to edit/delete messages.
