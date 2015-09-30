@@ -4,6 +4,8 @@
 
 angular.module('guestBook', [
   'ui.router',
+  'ui.bootstrap',
+  'ngAnimate',
   'guestBook.controllers',
   'guestBook.directives',
   'guestBook.services'
@@ -19,13 +21,7 @@ angular.module('guestBook', [
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: '/index',
-      controller: 'showMessages'
-  })
-  .state('login', {
-    url: '/login',
-    templateUrl: '/partials/login',
-    controller: 'loginController'
+      templateUrl: '/index'
   })
   .state('admin', {
     url: '/admin',

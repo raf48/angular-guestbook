@@ -5,19 +5,23 @@ body {
 a {
   color: #00B7FF;
 }
-
+/*
 .newMessage {
   text-align: center;
+}*/
+
+td.newMsgBtn {
+  padding: 0px;
 }
 
 table.main, table.main th, table.main td {
   margin: 0 auto;
   border-collapse: collapse;
   border: 1px solid black;
-  width: 50%;
+  width: 550px;
 }
 
-table.main thead td {
+table.main thead td.newMsgForm {
   padding: 10px;
 }
 
@@ -25,9 +29,21 @@ table.main tbody td {
   padding: 0px 10px 0px 10px;
 }
 
-.msg-box {
-  padding: 0px 5px 0px 0px;
-  margin: 5px;
+form.form-group {
+  margin-bottom: 0px;
+}
+
+form div.form-group:last-of-type {
+  margin-bottom: 0px;
+}
+
+div.form-group {
+  padding: 0px;
+  margin-bottom: 7px;
+}
+
+td.newMessage button.btn {
+  border-radius: 0px;
 }
 
 .msg-box .error {
@@ -35,19 +51,40 @@ table.main tbody td {
   color: red;
 }
 
-input, textarea {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  border: 1px solid #CECECE;
+input.from {
+  width: 50%;
 }
 
-textarea {
-  width: 100%;
-  height: 100px;
+table.main div.message:first-of-type {
+  padding-top: 15px;
+}
+
+table.main hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.admin-msg textarea {
+  margin-bottom: 10px;
+}
+
+p.messageText {
+  white-space: pre-wrap;
 }
 
 .admin_btns {
   text-align: right;
   margin: 0px;
+}
+
+.login-btn {
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+.adm-login {
+  position: absolute;
+  right: 2%;
 }
 
 .admMessage:first-of-type {
@@ -66,7 +103,6 @@ textarea {
   font-weight: bold;
 }
 
-.admLogin {
-  position: absolute;
-  right: 2%;
+.modal-dialog {
+  width: 350px;
 }

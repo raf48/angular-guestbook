@@ -62,6 +62,12 @@ app.factory('AuthService', function($http, $q, Session) {
     return !!Session.userId;
   };
 
+  authService.logout = function() {
+    if (authService.isAuthenticated()) {
+      Session.destroy();
+    }
+  };
+
   return authService;
 });
 
@@ -71,11 +77,11 @@ app.service('Session', function() {
     this.userId = userId;
   };
   
-  // Currently not used
-  /*this.destroy = function() {
+  this.destroy = function() {
     this.id = null;
     this.userId = null;
-  };*/
+    console.log('wooot');
+  };
 });
 
 app.factory('AuthResolver', function($q, $rootScope, $state) {
@@ -88,8 +94,8 @@ app.factory('AuthResolver', function($q, $rootScope, $state) {
             d.resolve(currentUser);
           } else {
             d.reject();
-            console.log('rejected...');
-            $state.go('login');
+            $state.go('home');
+            $rootScope.openModal = true;
           }
           unwatch();
         }

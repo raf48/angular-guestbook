@@ -16,7 +16,7 @@ app.directive('message', function() {
     replace: true,
     template: '<div>' + 
       '<p>From: {{ from }}</p>' + 
-      '<p>{{ text }}</p>' +
+      '<p class="messageText">{{ text }}</p>' +
       '<p>' + 
       '  <span>Date: {{ date | date : "yyyy-MM-dd HH:mm:ss" }}</span>' +
       '  <span class="modDate" ng-show="modDate">| ' +
@@ -60,7 +60,7 @@ app.directive('message', function() {
       modDate: '@'
     },
     replace: true,
-    template: '<div>' + 
+    template: '<div class="admin-msg">' + 
       '<div class="admin_btns">' +
       '  <span ng-show="!showDelete(id) && !showEdit(id)"">' +
       '    <a href="#" ng-click="promptDelete(id)">Delete</a> | ' + 
@@ -76,8 +76,9 @@ app.directive('message', function() {
       '  </span>' +
       '</div>' +
       '<p>From: {{ from }}</p>' + 
-      '<textarea ng-show="showEdit(id)" ng-model="editText"></textarea>' + 
-      '<p ng-show="!showEdit(id)">{{ text }}</p>' +
+      '<textarea class="form-control" rows="3" ng-show="showEdit(id)"' +
+      'ng-model="editText"></textarea>' + 
+      '<p class="messageText" ng-show="!showEdit(id)">{{ text }}</p>' +
       '<p>' + 
       '  <span>Date: {{ date | date : "yyyy-MM-dd HH:mm:ss" }}</span>' +
       '  <span class="modDate" ng-show="modDate">| ' +

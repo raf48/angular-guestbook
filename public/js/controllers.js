@@ -4,8 +4,28 @@
 
 var app = angular.module('guestBook.controllers', []);
 
-app.controller('mainController', function($scope, $rootScope, $state, AUTH_EVENTS) {
+app.controller('modalCtrl', function($scope, $rootScope, $modal) {
+
+  $scope.animationsEnabled = true;
+
+  $scope.open = function() {
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'loginModalContent',
+      controller: 'loginController',
+      scope: $scope
+    });
+  };
   
+  if ($rootScope.openModal) {
+    $scope.open();
+    $rootScope.openModal = false;
+  }
+});
+
+app.controller('mainController', function($scope, $rootScope, $state, AUTH_EVENTS) {
+
+  $scope.openModal = false;
   $rootScope.currentUser = null;
   $scope.setCurrentUser = function(user) {
     $rootScope.currentUser = user;
@@ -68,8 +88,11 @@ app.controller('showMessages', function($scope, $state, messagesAPI) {
 });
 
 app.controller('adminController', function($scope, $state, messagesAPI, AuthService) {
-
-  $scope.auth = AuthService.isAuthenticated;
+  
+  $scope.logout = function() {
+    AuthService.logout();
+    $state.go('home');
+  };
   
   $scope.delete = function(id) {
     messagesAPI.deleteMessage(id)
