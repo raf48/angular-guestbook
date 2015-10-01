@@ -80,7 +80,6 @@ app.service('Session', function() {
   this.destroy = function() {
     this.id = null;
     this.userId = null;
-    console.log('wooot');
   };
 });
 
